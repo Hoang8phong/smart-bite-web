@@ -86,12 +86,11 @@ async function fetchNearbyCandidates(params: {
 
   const bodyBase: any = {
     includedTypes: ["restaurant"],
-    rankPreference: params.rankPref,
+    rankPreference: "DISTANCE",
     locationRestriction: { circle: { center: { latitude: params.lat, longitude: params.lng }, radius: params.radius } },
     openNow: params.openNow,
     languageCode: "en",
     regionCode: "AU",
-    keyword: params.keyword
   };
 
   let collected: any[] = [];
@@ -133,7 +132,7 @@ app.post("/api/search", async (req, res) => {
     max, mode
   } = parsed.data;
 
-  const rankPref: "DISTANCE" | "RELEVANCE" = keyword ? "RELEVANCE" : "DISTANCE";
+  const rankPref = "DISTANCE";
   const want = Math.min(max ?? pageSize, 60);
 
   try {
@@ -183,11 +182,19 @@ app.post("/api/search", async (req, res) => {
 
     // 4) Filters + Pagination
     let filtered = results.filter((r:any)=>{
-      const okRating = (r.rating ?? 0) >= minRating;
-      const okPrice = !priceLevels?.length ? true
-        : (r.priceLevel !== undefined && priceLevels.includes(r.priceLevel));
-      return okRating && okPrice;
-    });
+  	const okRating = (r.rating ?? 0) >= minRating;
+  	const okPrice = !priceLevels?.length
+   	 ? true
+   	 : (r.priceLevel !== undefined && priceLevels.includes(r.priceLevel));
+
+ 	 const okOpen = openNow ? (r.isOpenNow === true) : true;
+
+  	const okKeyword = keyword
+    	? (r.name && r.name.toLowerCase().includes(keyword.toLowerCase()))
+    	: true;
+
+  	return okRating && okPrice && okOpen && okKeyword;
+});
 
     const start = (page - 1) * pageSize; // 1-based
     const paged = filtered.slice(start, start + pageSize);

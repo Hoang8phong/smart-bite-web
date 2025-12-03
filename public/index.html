@@ -366,7 +366,7 @@
 <body>
 
   <header class="top-bar">
-    <div class="top-brand">SmartBite • Nearby Restaurants</div>
+    <div class="top-brand">SmartBite</div>
     <div class="top-actions">
 
     </div>
@@ -376,10 +376,9 @@
     <!-- Hero -->
     <section class="hero">
       <div class="hero-main">
-        <h1 class="hero-title">Find a place to eat, fast.</h1>
+        <h1 class="hero-title">Find the nearest place to eat</h1>
         <p class="hero-sub">
-          Search nearby restaurants based on your current location, walking or driving time,
-          rating and price levels – powered by Google Maps Platform.
+          (Recommended for travelers, foodies, and locals)  
         </p>
         <div class="hero-badge">
           <span>Realtime distance · Travel time · Filters</span>
@@ -390,6 +389,31 @@
         </div>
       </div>
     </section>
+
+    <div id="guide" style="
+  border: 1px solid #d0d7de;
+  padding: 12px 16px;
+  background: #f6f8fa;
+  margin-top: 12px;
+  margin-bottom: 18px;
+  font-size: 14px;
+  line-height: 1.5;
+">
+  <b>📘 How to use this tool:</b>
+  <ul style="margin-top: 6px; padding-left: 20px;">
+    <li><b>1: Enter coordinates:</b> Latitude and Longtitude or press <b>Use my Location</b>. </li>
+    <li><b>1.1:</b> Or type an <b>Address</b> and press <b>Resolve → lat/lng</b>. </li>
+    <li><b>2. Radius: </b> From 100 - 5000 m (default is 1500m).</li>
+    <li><b>4. Mode:</b> walking or driving.</li>
+    <li><b>5. Filters</b> (optional):
+      <ul style="padding-left: 20px; margin-top: 4px;">
+        <li><b>Rating</b></li>
+        <li><b>Price level</b></li>
+      </ul>
+    </li>
+    <li><b>6. Press “Search”</b> to show result</li>
+  </ul>
+</div>
 
     <!-- Panel filters -->
     <section class="panel">
@@ -462,7 +486,7 @@
           </div>
           <div class="field-group" style="max-width: 110px;">
             <span>Per page</span>
-            <input id="pageSize" type="number" value="10" min="1" max="20">
+            <input id="pageSize" type="number" value="20" min="1" max="20">
           </div>
           <div class="field-group" style="max-width: 120px;">
             <span>&nbsp;</span>
@@ -802,6 +826,8 @@
       btn.textContent = old;
     }
   };
+
+  
 </script>
 
 
